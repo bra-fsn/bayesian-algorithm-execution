@@ -144,7 +144,8 @@ class AlgoAcqFunction(AcqFunction):
         """
         exe_path_list = []
         output_list = []
-        with Timer(f"Sample {self.params.n_path} execution paths"):
+        msg = f"Sample {self.params.n_path} execution paths"
+        with Timer(msg, verbose=self.verbose):
             for _ in range(self.params.n_path):
                 fs = FunctionSample(verbose=False)
                 fs.set_model(self.model)
@@ -161,7 +162,8 @@ class AlgoAcqFunction(AcqFunction):
         """
         exe_path_list = []
         output_list = []
-        with Timer(f"Sample {self.params.n_path} execution paths"):
+        msg = f"Sample {self.params.n_path} execution paths"
+        with Timer(msg, verbose=self.verbose):
             # Initialize model fsl
             self.model.initialize_function_sample_list(self.params.n_path)
 
