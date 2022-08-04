@@ -23,7 +23,7 @@ class Timer(object):
         message = 'Elapsed: %.2f seconds' % (time.time() - self.tstart)
         if self.name:
             message = '*[TIME] [%s] ' % self.name + message
-        if verbose:
+        if self.verbose:
             print(message)
         if self.filename:
             with open(self.filename,'a') as file:
