@@ -102,6 +102,7 @@ class AlgoAcqFunction(AcqFunction):
         super().__init__(params, verbose)
         self.set_model(model)
         self.set_algorithm(algorithm)
+        self.verbose = verbose
 
     def set_params(self, params):
         """Set self.params, the parameters for the AcqFunction."""
