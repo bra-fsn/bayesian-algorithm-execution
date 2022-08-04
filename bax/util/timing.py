@@ -14,7 +14,7 @@ class Timer(object):
     def __init__(self, name=None, filename=None, verbose=True):
         self.name = name
         self.filename = filename
-        self.verbose = False
+        self.verbose = verbose
 
     def __enter__(self):
         self.tstart = time.time()
