@@ -102,7 +102,6 @@ class AlgoAcqFunction(AcqFunction):
         super().__init__(params, verbose)
         self.set_model(model)
         self.set_algorithm(algorithm)
-        self.verbose = verbose
 
     def set_params(self, params):
         """Set self.params, the parameters for the AcqFunction."""
@@ -146,7 +145,7 @@ class AlgoAcqFunction(AcqFunction):
         exe_path_list = []
         output_list = []
         msg = f"Sample {self.params.n_path} execution paths"
-        with Timer(msg, verbose=self.verbose):
+        with Timer(msg, verbose=self.params.verbose):
             for _ in range(self.params.n_path):
                 fs = FunctionSample(verbose=False)
                 fs.set_model(self.model)
@@ -164,7 +163,7 @@ class AlgoAcqFunction(AcqFunction):
         exe_path_list = []
         output_list = []
         msg = f"Sample {self.params.n_path} execution paths"
-        with Timer(msg, verbose=self.verbose):
+        with Timer(msg, verbose=self.params.verbose):
             # Initialize model fsl
             self.model.initialize_function_sample_list(self.params.n_path)
 
@@ -443,7 +442,7 @@ class BaxAcqFunction(AlgoAcqFunction):
         """Return acquisition function for a batch of inputs x_list."""
 
         msg = f"Compute acquisition function for a batch of {len(x_list)} points"
-        with Timer(msg, verbose=self.verbose):
+        with Timer(msg, verbose=self.params.verbose):
             # Compute posterior, and post given each execution path sample, for x_list
             mu, std = self.model.get_post_mu_cov(x_list, full_cov=False)
 
@@ -505,7 +504,7 @@ class MesAcqFunction(BaxAcqFunction):
         """Return acquisition function for a batch of inputs x_list."""
 
         msg = f"Compute acquisition function for a batch of {len(x_list)} points"
-        with Timer(msg, verbose=self.verbose):
+        with Timer(msg, verbose=self.params.verbose):
             # Compute entropies for posterior for x in x_list
             mu, std = self.model.get_post_mu_cov(x_list, full_cov=False)
             h_post = self.entropy_given_normal_std(std)
@@ -645,7 +644,7 @@ class MultiBaxAcqFunction(AlgoAcqFunction):
 
         # Compute posterior, and post given each execution path sample, for x_list
         msg = f"Compute acquisition function for a batch of {len(x_list)} points"
-        with Timer(msg, verbose=self.verbose):
+        with Timer(msg, verbose=self.params.verbose):
             # NOTE: self.model is multimodel so the following returns a list of mus and
             # a list of stds
             mus, stds = self.model.get_post_mu_cov(x_list, full_cov=False)
